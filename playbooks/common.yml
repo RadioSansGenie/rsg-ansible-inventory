@@ -1,0 +1,8 @@
+---
+- hosts: all
+  roles:
+    - { role: common, become: "{{ ansible_user_id != 'root' }}" }
+    - { role: node-exporter, become: "{{ ansible_user_id != 'root' }}" }
+    - { role: unattended-upgrades, become: "{{ ansible_user_id != 'root' }}" }
+    - { role: users, become: "{{ ansible_user_id != 'root' }}" }
+    - { role: linux-motd, become: "{{ ansible_user_id != 'root' }}" }
