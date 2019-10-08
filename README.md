@@ -44,7 +44,7 @@ git push -u origin master
 
 ### Directory structure
 
-```
+```txt
 .
 ├── galaxy_roles
 ├── inventories
@@ -75,20 +75,12 @@ This is a project specific configuration file to configure Ansible. [View](ansib
 to see a more detailed explanation of the default settings provided by this
 project.
 
-##### Read more
-
-- [Ansible.cfg - http://docs.ansible.com/ansible/intro_configuration.html](http://docs.ansible.com/ansible/intro_configuration.html)
-
 #### galaxy_roles
 
 This is where you should install your third-party roles from [Ansible Galaxy](https://galaxy.ansible.com/).
 
 Recommended to configure [galaxy-requirements.yml](galaxy-requirements.yml) with the third party roles you are
 using.
-
-##### Read more
-
-- [Ansible Galaxy - http://docs.ansible.com/ansible/galaxy.html](http://docs.ansible.com/ansible/galaxy.html)
 
 #### inventories
 
@@ -97,8 +89,7 @@ also contains directories for [group_vars](http://docs.ansible.com/ansible/intro
 
 Example:
 
-```
-.
+```txt
 ├── group_vars
 ├── host_vars
 └── production
@@ -130,7 +121,7 @@ things in the groups listed below.
 
 So its equivalent to manually writing:
 
-```
+```txt
 # inventories/production
 [production]
 app01.server.com
@@ -146,7 +137,7 @@ Ansible to load the variables for the hosts in that group.
 
 Example structure:
 
-```
+```txt
 .
 └── group_vars
     ├── all
@@ -209,7 +200,7 @@ group name, you use the `hostname`. The variables only be loaded for that specif
 
 Example:
 
-```
+```txt
 .
 └── host_vars
     └── app01.server.com
@@ -240,10 +231,6 @@ This is where you can add your notes for things like manual configuration.
 This is where [playbooks](http://docs.ansible.com/ansible/playbooks.html)
 should be placed.
 
-##### Read More
-
-- [Playbooks - http://docs.ansible.com/ansible/playbooks.html](http://docs.ansible.com/ansible/playbooks.html)
-
 ---
 
 #### requirements.yml
@@ -263,10 +250,6 @@ ansible-galaxy install -r requirements.yml
 #### roles
 
 This is where you can add your custom Ansible [roles](http://docs.ansible.com/ansible/playbooks_roles.html#roles) for usage by your playbooks.
-
-##### Read more
-
-[Roles - http://docs.ansible.com/ansible/playbooks_roles.html#roles](http://docs.ansible.com/ansible/playbooks_roles.html#roles)
 
 ---
 
