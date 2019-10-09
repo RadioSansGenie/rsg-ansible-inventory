@@ -1,10 +1,12 @@
 ---
 # A basic role that deploy bases packages and shits to an ansible managed host.
-- src: lucasmaurice.ansible_role_common
+- src: lucasmaurice.common
+  version: 1.1.0
   name: common
 
 # A basic role that deploy a standardized motd on an host.
-- src: lucasmaurice.ansible_role_linux_motd
+- src: lucasmaurice.linux_motd
+  version: 1.0.0
   name: linux-motd
 
 # A basic role that deploy the Promtheus Node Exporter on an host. (Expose monitoring data for prometheus)

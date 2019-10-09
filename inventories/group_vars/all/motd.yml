@@ -1,4 +1,7 @@
 ---
-MOTD_WELCOME: Radio Sans Génie
+MOTD_WELCOME: RSG
 MOTD_WELCOME_FONT: big
 MOTD_CONTACT: contact@radiosansgenie.com
+
+MOTD_PRIVATE_INTERFACE: x
+MOTD_PUBLIC_INTERFACE: "{{ ansible_default_ipv4.interface }}"
