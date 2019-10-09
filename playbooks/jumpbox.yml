@@ -1,0 +1,25 @@
+---
+- hosts: jumpbox
+  become: true
+  vars:
+    pip_executable: pip3
+    pip_install_packages:
+      - docker
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
+  tasks:
+    - name: Create the container for openvpn jumpbox
+      docker_container:
+        name: openvpn-as
+        image: linuxserver/openvpn-as
+        volumes:
+          - /opt/ovpn/config:/config:rw
+        env:
+          PUID: "1000"
+          PGID: "1000"
+          TZ: "America/Toronto"
+        published_ports:
+          - 443:943
+          - 1194:1194/udp
+        restart_policy: unless-stopped

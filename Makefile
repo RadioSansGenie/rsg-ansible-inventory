@@ -3,11 +3,11 @@ install_user = root
 
 VENV_NAME?=venv
 VENV_ACTIVATE=. $(VENV_NAME)/bin/activate
-PYTHON=${VENV_NAME}/bin/python
+PYTHON=${VENV_NAME}/bin/python3
 
 venv: $(VENV_NAME)/bin/activate
 $(VENV_NAME)/bin/activate: env-requirements.txt
-	test -d $(VENV_NAME) || virtualenv -p python $(VENV_NAME)
+	test -d $(VENV_NAME) || virtualenv -p python3 $(VENV_NAME)
 	${PYTHON} -m pip install -r env-requirements.txt
 	touch $(VENV_NAME)/bin/activate
 
@@ -32,6 +32,9 @@ deploy-new-users: galaxy-install
 
 deploy-users: galaxy-install
 	$(VENV_ACTIVATE) && ansible-playbook -i $(inventory) playbooks/users.yml
+
+deploy-jumpbox: galaxy-install
+	$(VENV_ACTIVATE) && ansible-playbook -i $(inventory) playbooks/jumpbox.yml
 
 ################################# TEST COMMANDS #################################
 
