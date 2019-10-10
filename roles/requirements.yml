@@ -1,0 +1,29 @@
+---
+# A basic role that deploy bases packages and shits to an ansible managed host.
+- src: lucasmaurice.common
+  version: 1.1.0
+  name: common
+
+# A basic role that deploy a standardized motd on an host.
+- src: lucasmaurice.linux_motd
+  version: 1.0.0
+  name: linux-motd
+
+# A basic role that deploy the Promtheus Node Exporter on an host. (Expose monitoring data for prometheus)
+- src: lucasmaurice.ansible_role_node_exporter
+  name: node-exporter
+
+# A basic role that deploy Unnatended Upgrades on an host. (Automatic security upgrade)
+- src: jnv.unattended-upgrades
+  name: unattended-upgrades
+
+# A basic role that deploy or remove users on an host, with sudo right.
+- src: lucasmaurice.ansible_role_users
+  name: users
+
+# Needed roles for use docker and ansible.
+- src: geerlingguy.pip
+  version: 1.3.0
+- src: geerlingguy.docker
+  version: 2.5.3
+  

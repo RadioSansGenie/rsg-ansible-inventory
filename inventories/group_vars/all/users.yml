@@ -1,0 +1,10 @@
+---
+USERS:
+  - name: Lucas Maurice
+    username: lmaurice
+    public_keys: https://github.com/lucasmaurice.keys
+
+# Users to remove
+# USERS_TO_REMOVE:
+
+users: "{{ USERS }}"

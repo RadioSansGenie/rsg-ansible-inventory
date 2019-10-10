@@ -1,0 +1,56 @@
+---
+- hosts: jumpbox
+  become: true
+  vars:
+    pip_executable: pip3
+    pip_install_packages:
+      - docker
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
+  tasks:
+    - name: Create the container nginx proxy
+      docker_container:
+        name: nginx-proxy
+        image: jwilder/nginx-proxy
+        volumes:
+          - /etc/nginx/certs
+          - /etc/nginx/vhost.d
+          - /usr/share/nginx/html
+          - /var/run/docker.sock:/tmp/docker.sock:ro
+        network_mode: "bridge"
+        published_ports:
+          - 443:443
+          - 80:80
+        restart_policy: unless-stopped
+    - name: Create the container letsencrypt nginx companion
+      docker_container:
+        name: nginx-proxy-letsencrypt
+        image: jrcs/letsencrypt-nginx-proxy-companion
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock:ro
+        volumes_from:
+          - nginx-proxy
+        env:
+          DEFAULT_EMAIL: "{{ MOTD_CONTACT }}"
+        network_mode: "bridge"
+        restart_policy: unless-stopped
+    - name: Create the container for openvpn jumpbox
+      docker_container:
+        name: openvpn-as
+        image: linuxserver/openvpn-as
+        volumes:
+          - /opt/ovpn/config:/config:rw
+        env:
+          PUID: "1000"
+          PGID: "1000"
+          TZ: "America/Toronto"
+          VIRTUAL_HOST: "{{ inventory_hostname }}"
+          VIRTUAL_PORT: "943"
+          VIRTUAL_PROTO: "https"
+          LETSENCRYPT_HOST: "{{ inventory_hostname }}"
+          LETSENCRYPT_EMAIL: "{{ MOTD_CONTACT }}"
+        network_mode: "bridge"
+        published_ports:
+          - 1194:1194/udp
+        restart_policy: unless-stopped
